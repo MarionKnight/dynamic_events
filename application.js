@@ -17,6 +17,18 @@ $(document).ready(function() {
       var todoName = $('.toolbox .todo').val()
       add_todo(todoName)
     })
+
+    $('.todo_list').on( "click", '.delete', function() {
+      deleteMe = $(this).parentsUntil( ".todo_list")[2]
+      delete_todo( deleteMe )
+    })
+
+    $('.todo_list').on( "click", '.complete', function() {
+      completeMe = $(this).parentsUntil( "todo_list")[2]
+      console.log(completeMe)
+      complete_todo( completeMe )
+    })
+
   }
 
   //Create functions to add, remove and complete todos
@@ -24,16 +36,23 @@ $(document).ready(function() {
     $('.todo_list').append(buildTodo( todoName ))
   }
 
+  function delete_todo(todoName) {
+    todoName.remove()
+  }
+
+  function complete_todo(todoName) {
+    $('.completed_todo_list').append( todoName )
+  }
 
   function buildTodo(todoName) {
-    // Creates a jQueryDOMElement from the todoTemplate.
-    var $todo = $('#todo_template .todo');
-    // Modifies it's text to use the passed in todoName.
-    $todo.find('h2').text(todoName);
 
-    // console.log(todo.find('h2').text(todoName));
-    // Returns the jQueryDOMElement to be used elsewhere.
-    return $todo;
+     // Creates an jQueryDOMElement from the todoTemplate.
+     var $todo = $(todoTemplate);
+     // Modifies it's text to use the passed in todoName.
+     $todo.find('h2').text(todoName);
+     // Returns the jQueryDOMElement to be used elsewhere.
+     return $todo;
+
   }
 
 
